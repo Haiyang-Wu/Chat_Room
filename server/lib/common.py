@@ -1,8 +1,10 @@
 """
 public method
 """
+import pickle
 
 from conf.settings import *
+
 
 class ResponseData:
     notice = NOTICE
@@ -62,19 +64,55 @@ class ResponseData:
         }
         return response_dic
 
-class Myconn:
+
+class MyConn:
     def __init__(self, reader, writer):
         self.reader = reader
         self.writer = writer
 
         self.name = None
-        self.token = None   # to judge if a user is a legal user
+        self.token = None  # to judge if a user is a legal user
 
+
+    async def write(self, data):
+        self.writer.write(data)
+        await self.writer.drain()
+
+    async def send(self, dic):
+        dic_bytes = pickle.dumps(dic)
+        len_bytes = len(dic_bytes).to_bytes(PROTOCOL_LENGTH, byteorder='big')
+        await self.write(len_bytes)
+        await self.write(dic_bytes)
+        LOGGER.debug('发送字典完成')
+        if dic.get('mode') != RESPONSE_FILE:
+            return
+
+        # send file
 
     async def read(self, recv_len):
         return await self.reader.read(recv_len)
+
     async def recv(self):
-        dic_len = await self.read(PROTOCOL_LENGTH)
+        len_bytes = await self.read(PROTOCOL_LENGTH)
+        if not len_bytes:
+            raise ConnectionResetError
+        stream_len = int.from_bytes(len_bytes, byteorder='big')
+        dic_bytes = bytes()
+        while stream_len > 0:
+            if stream_len < 4096:
+                temp = await self.read(stream_len)
+            else:
+                temp = await self.read(4096)
+            if not temp:
+                raise ConnectionResetError
+            dic_bytes += temp
+            stream_len -= len(temp)
+        request_dic = pickle.loads(dic_bytes)
+        return request_dic
+
+        # receive data of file
+
+
 
     async def __aenter__(self):
         return self
@@ -88,5 +126,3 @@ class Myconn:
                 exc_type.__name__, exc_val, exc_tb.tb_frame
             ))
             return True
-
-

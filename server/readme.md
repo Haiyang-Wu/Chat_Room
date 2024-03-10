@@ -1,56 +1,56 @@
 ## 协议格式
 
-Client request format
+客户端请求格式
 
 ```python
-# Registration request format
+# 注册请求格式
 {
   'mode': 'register',
   'user': 'fei',
   'pwd': 123
 }
 
-# Login request format
+# 登陆请求格式
 {
   'mode': 'login',
   'user': 'fei',
   'pwd': 123
 }
 
-# Chat request format
+# 聊天请求格式
 {
   'mode': 'chat',
   'user': 'fei',
   'msg': 'hello',
-  'time': '2024-03-08 12:00:00',
+  'time': '2023-05-01 12:00:00',
   'token': 'jflkajflajfjas'
 }
 
-# File request format
+# 文件请求格式
 {
   'mode': 'file',
   'user': 'fei',
   'file_name': 'abc.txt',
   'file_size': 52532235,
   'md5': 'faifjaslkflafl',
-  'time': '2024-03-08 12:00:00',
+  'time': '2023-05-01 12:00:00',
   'token': 'jflkajflajfjas'
 }
 
-# Reconnection request format
+# 重连请求格式
 {
   'mode': 'reconnect',
   'user': 'fei',
   'token': 'jflkajflajfjas'
 }
 
-# The administrator modified the bulletin request format
+# 管理员修改公告请求格式
 ```
 
-Server response
+服务端响应
 
 ```python
-# Registration response format
+# 注册响应格式
 {
   'code': 200,
   'mode': 'register',
@@ -62,7 +62,7 @@ Server response
   'msg': '用户名已存在！'
 }
 
-# Login response format
+#登陆响应格式
 {
   'code': 200,
   'mode': 'login',
@@ -79,7 +79,7 @@ Server response
   'msg': '账号密码错误！'
 }
 
-# Broadcast response format
+# 广播响应格式
 {
   'code': 200,
   'mode': 'broadcast',
@@ -93,16 +93,16 @@ Server response
   'user': 'fei',
 }
 
-# Chat response format
+# 聊天响应格式
 {
   'code': 200,
   'mode': 'chat',
   'user': 'fei',
   'msg': 'hello',
-  'time': '2024-03-08 12:00:00',  # 世界标准时间
+  'time': '2023-05-01 12:00:00',  # 世界标准时间
 }
 
-# File response format
+# 文件响应格式
 {
   'code': 200,
   'mode': 'file',
@@ -110,10 +110,10 @@ Server response
   'file_name': 'abc.txt',
   'file_size': 52532235,
   'md5': 'faifjaslkflafl',
-  'time': '2024-03-08 12:00:00',
+  'time': '2023-05-01 12:00:00',
 }
 
-# Reconnection response format
+# 重连响应格式
 {
   'code': 200,
   'mode': 'reconnect',
