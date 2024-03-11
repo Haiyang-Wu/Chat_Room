@@ -1,10 +1,21 @@
 """
 public method
 """
+import asyncio
 import pickle
-
+import hashlib
+from datetime import datetime
+from multiprocessing import Queue
 from conf.settings import *
 
+
+# generate token
+def generate_token(user):
+    hash_obj = hashlib.sha256()
+    hash_obj.update(user.encode('utf-8'))
+    hash_obj.update(str(datetime.now().date()).encode('utf-8'))
+    hash_obj.update('CHATROOM'.encode('utf-8'))
+    return hash_obj.hexdigest()
 
 class ResponseData:
     notice = NOTICE
@@ -60,12 +71,66 @@ class ResponseData:
             'msg': msg,
             'token': token,
             'notice': ResponseData.notice,
-            'users': ('小飞', '中飞', '大飞')
+            'users': tuple(MyConn.online_users.keys())
         }
         return response_dic
 
+    @staticmethod
+    def login_error_dic(user, msg, *args, **kwargs):
+        """
+        login error dictionary
+        :param user:
+        :param msg:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        response_dic = {
+            'code': RESPONSE_ERROR_CODE,
+            'mode': RESPONSE_LOGIN,
+            'user': user,
+            'msg': msg
+        }
+        return response_dic
+
+    @staticmethod
+    def online_dic(user, *args, **kwargs):
+        """
+        online broadcast dictionary
+        :param user:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        response_dic = {
+            'code': RESPONSE_SUCCESS_CODE,
+            'mode': RESPONSE_BROADCAST,
+            'status': RESPONSE_ONLINE,
+            'user': user,
+        }
+        return response_dic
+
+    @staticmethod
+    def offline_dic(user, *args, **kwargs):
+        """
+        offline broadcast dictionary
+        :param user:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        response_dic = {
+            'code': RESPONSE_SUCCESS_CODE,
+            'mode': RESPONSE_BROADCAST,
+            'status': RESPONSE_OFFLINE,
+            'user': user,
+        }
+        return response_dic
 
 class MyConn:
+    online_users = {}
+    bcst_q = Queue()
+
     def __init__(self, reader, writer):
         self.reader = reader
         self.writer = writer
@@ -73,6 +138,20 @@ class MyConn:
         self.name = None
         self.token = None  # to judge if a user is a legal user
 
+    async def put_q(self, dic):
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None, self.bcst_q.put, dic)
+
+
+    @classmethod
+    async def send_all(cls):
+        loop = asyncio.get_running_loop()
+        while True:
+            dic = await loop.run_in_executor(None, cls.bcst_q.get)
+            for conn in cls.online_users.values():
+                if conn.name == dic.get('user'):
+                    continue
+                await conn.send(dic)
 
     async def write(self, data):
         self.writer.write(data)
@@ -112,6 +191,12 @@ class MyConn:
 
         # receive data of file
 
+    async def offline(self):
+        self.online_users.pop(self.name)
+        LOGGER.info('[{}] have left the chat room'.format(self.name))
+        response_dic = ResponseData.offline_dic(self.name)
+        await self.put_q(response_dic)
+
 
 
     async def __aenter__(self):
@@ -119,6 +204,8 @@ class MyConn:
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         self.writer.close()
+        if self.name:
+            await self.offline()
         if exc_type is ConnectionResetError:
             return True
         if (exc_type is not None) and LEVEL != 'DEBUG':

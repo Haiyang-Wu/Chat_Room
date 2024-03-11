@@ -1,5 +1,6 @@
 from core.views import *
 
 route_mode = {
-    'register': register
+    'register': register,
+    'login': login
 }

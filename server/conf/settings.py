@@ -7,7 +7,7 @@ import os
 import logging.config
 
 # server address configuration
-HOST = '0.0.0.0'
+HOST = 'localhost'
 PORT = 9000
 
 
