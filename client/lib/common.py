@@ -4,7 +4,7 @@ public method
 """
 
 import hashlib
-from datetime import datetime
+from datetime import datetime, timezone
 from PyQt6.QtWidgets import QMessageBox
 from conf.settings import *
 
@@ -53,6 +53,32 @@ def reconnect(fn):
                 return
             QMessageBox.warning(self,'hint', 'Fail to connect to server, program will be terminated')
             exit()
+        return res
+    return wrapper
+
+
+def reconnect_t(fn):
+    def wrapper(*args, **kwargs):
+        self = args[0]
+        try:
+            res = fn(*args, **kwargs)
+        except Exception as e:
+            LOGGER.error('Connection down, reconnecting {}'.format(e))
+            # signal
+            self.reconnected.emit('show_tip')
+
+
+            self.client.close()
+            res = self.client.connect()
+
+            # signal
+            self.reconnected.emit('close_tip')
+            if res:
+                return
+            # signal
+            self.reconnected.emit('over')
+            self.terminate()
+
         return res
     return wrapper
 

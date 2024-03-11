@@ -15,8 +15,17 @@ REQUEST_REGISTER = 'register'
 REQUEST_LOGIN = 'login'
 REQUEST_CHAT = 'chat'
 REQUEST_FILE = 'file'
+REQUEST_ONLINE = 'online'
+REQUEST_OFFLINE = 'offline'
 REQUEST_RECONNECT = 'reconnect'
 PROTOCOL_LENGTH = 8
+
+
+# color config
+USER_COLOR = 'gray'
+MSG_COLOR = 'black'
+
+INTERVAL = 60
 
 # group announcement
 NOTICE = '请文明发言！'
@@ -31,7 +40,7 @@ USER_DIR = os.path.join(BASE_DIR, 'db', 'users')
 FILE_DIR = os.path.join(BASE_DIR, 'db', 'files')
 
 
-LEVEL = 'INFO'
+LEVEL = 'DEBUG'
 
 # log configuration dictionary
 LOGGING_DIC = {
