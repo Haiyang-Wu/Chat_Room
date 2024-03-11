@@ -42,6 +42,11 @@ async def login(conn, request_dic, *args, **kwargs):
         await conn.send(response_dic)
         return
 
+    if user in conn.online_users:
+        response_dic = ResponseData.login_error_dic(user, 'Please dont login the same user!')
+        await conn.send(response_dic)
+        return
+
     # save current conn object
     conn.online_users[user] = conn
     conn.name = user
@@ -53,3 +58,59 @@ async def login(conn, request_dic, *args, **kwargs):
     # broadcast message
     response_dic = ResponseData.online_dic(user)
     await conn.put_q(response_dic)
+
+async def reconnect(conn, request_dic, *args, **kwargs):
+    """
+    reconnect Interface
+    :param conn:
+    :param request_dic:
+    :param args:
+    :param kwargs:
+    :return:
+    """
+    LOGGER.debug('start reconnect')
+    token = request_dic.get('token')
+    user = request_dic.get('user')
+    if generate_token(user) != token:
+        response_dic = ResponseData.reconnect_error_dic('token is invalid, please try again')
+        await conn.send(response_dic)
+        return
+
+    if user in conn.online_users:
+        response_dic = ResponseData.reconnect_error_dic('user already login')
+        await conn.send(response_dic)
+        return
+
+    # save current conn object
+    conn.online_users[user] = conn
+    conn.name = user
+    conn.token = token
+    LOGGER.info('[{}] have entered the chat room'.format(user))
+    response_dic = ResponseData.reconnect_success_dic()
+    await conn.send(response_dic)
+
+    # broadcast message
+    response_dic = ResponseData.online_dic(user)
+    await conn.put_q(response_dic)
+
+
+async def chat(conn, request_dic, *args, **kwargs):
+    """
+    chat interface
+    :param conn:
+    :param request_dic:
+    :param args:
+    :param kwargs:
+    :return:
+    """
+    token = request_dic.get('token')
+    if token != conn.token:
+        conn.close()
+        return
+    user = request_dic.get('user')
+    msg = request_dic.get('msg')
+    LOGGER.info('{} says: {}'.format(user, msg))
+    response_dic = ResponseData.chat_dic((request_dic))
+    await conn.put_q(response_dic)
+
+

@@ -37,7 +37,7 @@ USER_DIR = os.path.join(BASE_DIR, 'db', 'users')
 FILE_DIR = os.path.join(BASE_DIR, 'db', 'files')
 
 
-LEVEL = 'INFO'
+LEVEL = 'DEBUG'
 
 # log configuration dictionary
 LOGGING_DIC = {

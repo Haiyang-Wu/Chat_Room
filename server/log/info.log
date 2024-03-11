@@ -1,18 +1,36 @@
-2024-03-11 04:24:04 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [fan] have entered the chat room
-2024-03-11 04:24:07 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [fan] have left the chat room
-2024-03-11 05:29:12 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [zhang] have entered the chat room
-2024-03-11 05:30:00 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [zhang] have left the chat room
-2024-03-11 05:42:29 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [fan] have entered the chat room
-2024-03-11 05:42:38 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [fan] have left the chat room
-2024-03-11 05:43:04 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [zhang] have entered the chat room
-2024-03-11 05:43:07 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [zhang] have left the chat room
-2024-03-11 05:44:18 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [fan] have entered the chat room
-2024-03-11 05:44:25 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [fan] have left the chat room
-2024-03-11 05:58:14 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [zhang] have entered the chat room
-2024-03-11 05:59:31 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [zhang] have left the chat room
-2024-03-11 05:59:39 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [zhang] have entered the chat room
-2024-03-11 05:59:42 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [zhang] have left the chat room
-2024-03-11 06:01:04 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [zhang] have entered the chat room
-2024-03-11 06:01:14 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:49] [fan] have entered the chat room
-2024-03-11 06:01:44 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [fan] have left the chat room
-2024-03-11 06:01:45 MainThread:8136725248 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:196] [zhang] have left the chat room
+2024-03-11 19:48:54 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:54] [fan] have entered the chat room
+2024-03-11 19:49:07 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:54] [zhang] have entered the chat room
+2024-03-11 19:49:39 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:54] [li] have entered the chat room
+2024-03-11 19:49:58 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] fan says: 1231
+2024-03-11 19:50:21 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] zhang says: weqweq
+2024-03-11 19:50:26 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] li says: weqwe
+2024-03-11 19:50:30 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] fan says: eqewqe
+2024-03-11 19:50:56 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [zhang] have left the chat room
+2024-03-11 19:50:56 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:88] [zhang] have entered the chat room
+2024-03-11 19:50:56 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [zhang] have left the chat room
+2024-03-11 19:50:57 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [li] have left the chat room
+2024-03-11 19:50:57 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:88] [li] have entered the chat room
+2024-03-11 19:50:57 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [li] have left the chat room
+2024-03-11 19:50:59 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [fan] have left the chat room
+2024-03-11 19:50:59 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:88] [fan] have entered the chat room
+2024-03-11 19:50:59 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [fan] have left the chat room
+2024-03-11 20:03:38 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:54] [fan] have entered the chat room
+2024-03-11 20:03:51 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:54] [zhang] have entered the chat room
+2024-03-11 20:04:04 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] zhang says: jdflsa
+2024-03-11 20:04:16 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] zhang says: sdfa
+2024-03-11 20:04:17 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] zhang says: f
+2024-03-11 20:04:18 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] zhang says: dfd
+2024-03-11 20:04:18 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] zhang says: f
+2024-03-11 20:04:18 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] zhang says: df
+2024-03-11 20:04:36 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [zhang] have left the chat room
+2024-03-11 20:04:36 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:88] [zhang] have entered the chat room
+2024-03-11 20:04:36 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [zhang] have left the chat room
+2024-03-11 20:04:39 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [fan] have left the chat room
+2024-03-11 20:04:39 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:88] [fan] have entered the chat room
+2024-03-11 20:04:39 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [fan] have left the chat room
+2024-03-11 20:06:42 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:54] [fan] have entered the chat room
+2024-03-11 20:06:43 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] fan says: fdsfd
+2024-03-11 20:06:45 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:112] fan says: ssdfsdfsd
+2024-03-11 20:06:49 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [fan] have left the chat room
+2024-03-11 20:06:49 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/core/views.py:88] [fan] have entered the chat room
+2024-03-11 20:06:49 MainThread:8143426304 [server] INFO [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:250] [fan] have left the chat room

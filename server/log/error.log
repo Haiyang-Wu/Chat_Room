@@ -1,2 +1,0 @@
-2024-03-09 05:15:30 MainThread:8136725248 [error_logger] ERROR [/Users/fantast1c/PythonStudy/chat_room/server/tests/test_exit.py:15] AttributeError: 'Test' object has no attribute 'xxx' <frame at 0x146808370, file '/Users/fantast1c/PythonStudy/chat_room/server/tests/test_exit.py', line 21, code <module>>
-2024-03-11 03:22:06 MainThread:8136725248 [error_logger] ERROR [/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py:125] CancelledError:  <frame at 0x101116640, file '/Users/fantast1c/PythonStudy/chat_room/server/core/server.py', line 22, code client_handler>

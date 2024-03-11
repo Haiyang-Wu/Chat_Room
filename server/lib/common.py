@@ -4,7 +4,7 @@ public method
 import asyncio
 import pickle
 import hashlib
-from datetime import datetime
+from datetime import datetime, timezone
 from multiprocessing import Queue
 from conf.settings import *
 
@@ -16,6 +16,12 @@ def generate_token(user):
     hash_obj.update(str(datetime.now().date()).encode('utf-8'))
     hash_obj.update('CHATROOM'.encode('utf-8'))
     return hash_obj.hexdigest()
+
+
+def get_utc_time():
+    utc_time = datetime.utcnow().replace(microsecond=0, tzinfo=timezone.utc)
+    return utc_time
+
 
 class ResponseData:
     notice = NOTICE
@@ -127,6 +133,51 @@ class ResponseData:
         }
         return response_dic
 
+    @staticmethod
+    def reconnect_success_dic(*args, **kwargs):
+        """
+        reconnect success dictionary
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        response_dic = {
+            'code': RESPONSE_SUCCESS_CODE,
+            'mode': RESPONSE_RECONNECT,
+            'users': tuple(MyConn.online_users.keys())
+        }
+        return response_dic
+
+    @staticmethod
+    def reconnect_error_dic(msg, *args, **kwargs):
+        """
+        reconnect error dictionary
+        :param msg:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        response_dic = {
+            'code': RESPONSE_ERROR_CODE,
+            'mode': RESPONSE_RECONNECT,
+            'msg': msg
+        }
+        return response_dic
+
+    @staticmethod
+    def chat_dic(response_dic, *args, **kwargs):
+        """
+        chat dictionary
+        :param response_dic:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        response_dic.pop('token')
+        response_dic['code'] = RESPONSE_SUCCESS_CODE
+        response_dic['time'] = get_utc_time()
+        return response_dic
+
 class MyConn:
     online_users = {}
     bcst_q = Queue()
@@ -191,19 +242,20 @@ class MyConn:
 
         # receive data of file
 
+    def close(self):
+        self.writer.close()
+
     async def offline(self):
         self.online_users.pop(self.name)
         LOGGER.info('[{}] have left the chat room'.format(self.name))
         response_dic = ResponseData.offline_dic(self.name)
         await self.put_q(response_dic)
 
-
-
     async def __aenter__(self):
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        self.writer.close()
+        self.close()
         if self.name:
             await self.offline()
         if exc_type is ConnectionResetError:
