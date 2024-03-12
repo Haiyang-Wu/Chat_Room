@@ -8,6 +8,7 @@ import asyncio
 from lib.common import *
 from core.urls import route_mode
 
+
 class ChatServer:
     def __init__(self, host='localhost', port=9000):
         self.host = host

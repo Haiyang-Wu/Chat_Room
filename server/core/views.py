@@ -114,3 +114,24 @@ async def chat(conn, request_dic, *args, **kwargs):
     await conn.put_q(response_dic)
 
 
+async def file(conn, request_dic, *args, **kwargs):
+    """
+    files interface
+    :param conn:
+    :param request_dic:
+    :param args:
+    :param kwargs:
+    :return:
+    """
+    token = request_dic.get('token')
+    if token != conn.token:
+        conn.close()
+        return
+
+    user = request_dic.get('user')
+    file_name = request_dic.get('file_name')
+    LOGGER.info('{} sended files: {}'.format(user, file_name))
+    response_dic = ResponseData.file_dic((request_dic))
+    await conn.put_q(response_dic)
+
+

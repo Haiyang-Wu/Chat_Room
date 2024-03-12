@@ -4,5 +4,6 @@ route_mode = {
     'register': register,
     'login': login,
     'reconnect': reconnect,
-    'chat': chat
+    'chat': chat,
+    'file': file
 }

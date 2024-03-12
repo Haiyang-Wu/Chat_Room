@@ -1,9 +1,11 @@
 """
 public method
 """
+import re
 import asyncio
 import pickle
 import hashlib
+import aiofiles
 from datetime import datetime, timezone
 from multiprocessing import Queue
 from conf.settings import *
@@ -178,6 +180,21 @@ class ResponseData:
         response_dic['time'] = get_utc_time()
         return response_dic
 
+    @staticmethod
+    def file_dic(response_dic, *args, **kwargs):
+        """
+        file dictionary
+        :param response_dic:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        response_dic.pop('token')
+        response_dic['code'] = RESPONSE_SUCCESS_CODE
+        response_dic['time'] = get_utc_time()
+        return response_dic
+
+
 class MyConn:
     online_users = {}
     bcst_q = Queue()
@@ -199,10 +216,29 @@ class MyConn:
         loop = asyncio.get_running_loop()
         while True:
             dic = await loop.run_in_executor(None, cls.bcst_q.get)
+            try:
+                file_path = dic.pop('file_path')
+            except KeyError:
+                pass
             for conn in cls.online_users.values():
                 if conn.name == dic.get('user'):
                     continue
                 await conn.send(dic)
+            # send files
+            if dic.get('mode') == RESPONSE_FILE:
+                await cls.send_file(dic, file_path)
+
+    @classmethod
+    async def send_file(cls, dic, file_path):
+        async with aiofiles.open(file_path, 'rb')as f:
+            while True:
+                temp = await f.read(4096)
+                if not temp:
+                    break
+                for conn in cls.online_users.values():
+                    if conn.name == dic.get('user'):
+                        continue
+                    await conn.write(temp)
 
     async def write(self, data):
         self.writer.write(data)
@@ -217,7 +253,6 @@ class MyConn:
         if dic.get('mode') != RESPONSE_FILE:
             return
 
-        # send file
 
     async def read(self, recv_len):
         return await self.reader.read(recv_len)
@@ -238,9 +273,51 @@ class MyConn:
             dic_bytes += temp
             stream_len -= len(temp)
         request_dic = pickle.loads(dic_bytes)
+        if request_dic.get('mode') != RESPONSE_FILE:
+            return request_dic
+        # receive data of file
+        return await self.recv_file(request_dic)
+
+    @staticmethod
+    def rename(file_name):
+        base, ext = os.path.splitext(file_name)
+        pattern = re.compile(r'\((d+)\)\$')
+        res = pattern.search(base)
+        if res:
+            num = int(res.group(1)) + 1
+            base = pattern.sub('({})'.format(num), base)
+        else:
+            base = '{}{}'.format(base, '(1)')
+        return '{}{}'.format(base, ext)
+
+    async def recv_file(self, request_dic):
+        file_size = request_dic.get('file_size')
+        now_date = datetime.now().strftime('%Y-%m')
+        file_dir = os.path.join(FILE_DIR, now_date)
+        if not os.path.isdir(file_dir):
+            os.mkdir(file_dir)
+
+        file_name = request_dic.get('file_name')
+        file_path = os.path.join(file_dir, file_name)
+        while True:
+            if os.path.exists(file_path):
+                file_name = self.rename(file_name)
+                file_path = os.path.join(file_dir, file_name)
+            else:
+                break
+        async with aiofiles.open(file_path, 'wb')as f:
+            while file_size > 0:
+                if file_size < 4096:
+                    temp = await self.read(file_size)
+                else:
+                    temp = await self.read(4096)
+                if not temp:
+                    raise ConnectionResetError
+                await f.write(temp)
+                file_size -= len(temp)
+            request_dic['file_path'] = file_path
         return request_dic
 
-        # receive data of file
 
     def close(self):
         self.writer.close()
