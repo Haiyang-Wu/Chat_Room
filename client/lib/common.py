@@ -82,6 +82,14 @@ def reconnect_t(fn):
         return res
     return wrapper
 
+
+def byte_to_human(size):
+    units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+    for unit in units:
+        if size < 1024 or unit == 'PB':
+            return '{:.2f} {}'.format(size, unit)
+        size /= 1024
+
 class RequestData:
     @staticmethod
     def register_dic(user, pwd, *args, **kwargs):

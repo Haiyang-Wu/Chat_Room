@@ -27,6 +27,9 @@ MSG_COLOR = 'black'
 
 INTERVAL = 60
 
+# images suffix
+IMG_TYPES = ['png', 'jpg', 'jpeg', 'jif', 'bmp']
+
 # group announcement
 NOTICE = '请文明发言！'
 
@@ -35,10 +38,8 @@ NOTICE = '请文明发言！'
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))       # project root directory
 INFO_LOG_DIR = os.path.join(BASE_DIR, 'log', 'info.log')
 ERROR_LOG_DIR = os.path.join(BASE_DIR, 'log', 'error.log')
-ASYNCIO_ERROR_LOG_DIR = os.path.join(BASE_DIR, 'log', 'asyncio_error.log')
-USER_DIR = os.path.join(BASE_DIR, 'db', 'users')
-FILE_DIR = os.path.join(BASE_DIR, 'db', 'files')
-
+IMG_DIR = os.path.join(BASE_DIR, 'imgs')
+FILE_DIR = os.path.join(BASE_DIR, 'datas')
 
 LEVEL = 'DEBUG'
 
