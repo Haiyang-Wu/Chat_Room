@@ -1,0 +1,12 @@
+2024-03-12 15:37:13 MainThread:8596083264 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:451] zhang send a file: /Users/fantast1c/Desktop/logo.png
+2024-03-12 15:37:13 MainThread:8636506688 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:451] zhang send a file: /Users/fantast1c/PythonStudy/chat_room/client/datas/2024-03/logo.png
+2024-03-12 15:37:19 MainThread:8596083264 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:451] zhang send a file: /Users/fantast1c/Desktop/Customer Gateway.pdf
+2024-03-12 15:37:20 MainThread:8636506688 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:451] zhang send a file: /Users/fantast1c/PythonStudy/chat_room/client/datas/2024-03/Customer Gateway.pdf
+2024-03-12 15:37:26 MainThread:8596083264 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:373] ME says: hallll
+2024-03-12 15:37:26 MainThread:8636506688 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:373] zhang says: hallll
+2024-03-12 15:37:31 MainThread:8636506688 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:373] ME says: hai
+2024-03-12 15:37:31 MainThread:8596083264 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:373] fan says: hai
+2024-03-12 15:37:44 Dummy-2:12992622592 [client] ERROR [/Users/fantast1c/PythonStudy/chat_room/client/lib/common.py:66] Connection down, reconnecting [Errno 9] Bad file descriptor
+2024-03-12 15:37:44 Dummy-2:12992622592 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:573] Reconnect dictionary send successfully!
+2024-03-12 15:37:46 Dummy-2:12913209344 [client] ERROR [/Users/fantast1c/PythonStudy/chat_room/client/lib/common.py:66] Connection down, reconnecting [Errno 9] Bad file descriptor
+2024-03-12 15:37:46 Dummy-2:12913209344 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:573] Reconnect dictionary send successfully!
