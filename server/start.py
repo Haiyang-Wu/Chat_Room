@@ -3,7 +3,7 @@ entrance file
 
 """
 
-from core.server import run
+from server.core.server import run
 
 if __name__ == '__main__':
     run()
