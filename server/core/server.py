@@ -3,10 +3,8 @@ Core logic
 
 """
 
-import asyncio
-
-from lib.common import *
-from core.urls import route_mode
+from server.lib.common import *
+from server.core.function.urls import route_mode
 
 
 class ChatServer:

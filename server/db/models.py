@@ -3,7 +3,7 @@ Model layer
 
 """
 
-from db import db_handler
+from server.db import db_handler
 
 class User:
     def __init__(self, name, pwd):

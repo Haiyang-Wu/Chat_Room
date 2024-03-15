@@ -8,7 +8,7 @@ import hashlib
 import aiofiles
 from datetime import datetime, timezone
 from multiprocessing import Queue
-from conf.settings import *
+from server.conf.settings import *
 
 
 # generate token

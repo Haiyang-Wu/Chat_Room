@@ -1,5 +1,5 @@
 import traceback
-from conf.settings import *
+from server.conf.settings import *
 class Test:
     def __enter__(self):
         return self

@@ -1,4 +1,4 @@
-from core.views import *
+from server.core.function.views import *
 
 route_mode = {
     'register': register,

@@ -5,7 +5,7 @@ data processing layer
 
 import pickle
 import aiofiles
-from conf.settings import *
+from server.conf.settings import *
 
 async def save_data(obj):
     obj_path = os.path.join(USER_DIR, obj.name)
