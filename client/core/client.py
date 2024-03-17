@@ -7,6 +7,7 @@ import socket
 import time
 import pickle
 import queue
+import ssl
 import sys
 
 from PyQt6.QtGui import QTextCursor, QDropEvent
@@ -48,6 +49,11 @@ class MySocket:
         self.user = None
         self.token = None
         self.socket = None
+
+        self.context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+        CA_FILE = "ca-cert.pem"
+        self.context.load_verify_locations(CA_FILE)
+        self.context.verify_mode = ssl.CERT_REQUIRED
 
     def send(self, data):
         self.socket.send(data)
@@ -143,6 +149,9 @@ class MySocket:
         for i in range(1, 4):
             try:
                 self.socket = socket.socket()
+                sock = self.socket
+                ssock = self.context.wrap_socket(sock, server_side=False)
+                self.socket = ssock
                 self.socket.connect((self.host, self.port))
                 LOGGER.debug('connected to server successfully!')
                 return True
@@ -262,7 +271,7 @@ class ChatWindow(ChatUiMixin, QWidget):
         self.tip_label = QLabel()
         self.tip_label.setWindowFlag(Qt.WindowType.FramelessWindowHint)  # hide the windows
         self.tip_label.setWindowModality(Qt.WindowModality.ApplicationModal)  # model windows
-        self.tip_label.setStyleSheet("background-color: gray")
+        self.tip_label.setStyleSheet("background-color: black")
 
         self.label.close()
         self.textBrowser.clear()

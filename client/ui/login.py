@@ -15,6 +15,9 @@ class Ui_Form(object):
         Form.resize(400, 600)
         Form.setMinimumSize(QtCore.QSize(400, 600))
         Form.setMaximumSize(QtCore.QSize(400, 600))
+
+        Form.setStyleSheet("background-image: url(imgs/img.png);")
+
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.stackedWidget = QtWidgets.QStackedWidget(parent=Form)

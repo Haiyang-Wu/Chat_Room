@@ -31,7 +31,7 @@ INTERVAL = 60
 IMG_TYPES = ['png', 'jpg', 'jpeg', 'jif', 'bmp']
 
 # group announcement
-NOTICE = '请文明发言！'
+NOTICE = 'Please speak politely.！'
 
 
 # routes configuration

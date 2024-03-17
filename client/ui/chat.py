@@ -14,6 +14,11 @@ class Ui_Form(object):
         Form.setObjectName("Form")
         Form.resize(1000, 600)
         Form.setWindowFilePath("")
+
+        Form.setStyleSheet("background-image: url(imgs/img.png);")
+
+
+
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setSpacing(6)
