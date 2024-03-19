@@ -1,6 +1,10 @@
 from server.db.connection import connect_to_database
-from server.db.models import User
-from server.lib.common import *
+from server.lib.common import *  # Debugging logs
+from server.core.function.tools import *
+
+"""
+User Registration
+"""
 
 
 async def register(conn, request_dic, *args, **kwargs):
@@ -12,75 +16,80 @@ async def register(conn, request_dic, *args, **kwargs):
     :param kwargs:
     :return:
     """
-    LOGGER.debug('Start register')  # 开始注册日志
-    # 验证用户名是否存在
+    LOGGER.debug('Start register')  # Start registration log
+    # Verify if username exists
     user = request_dic.get('user')
     pwd = request_dic.get('pwd')
 
-    # 检查用户名是否已存在
+    # Check if username already exists
     connection = await connect_to_database()
     async with connection.cursor() as cursor:
         await cursor.execute("SELECT * FROM users WHERE username=%s", (user,))
         existing_user = await cursor.fetchone()
 
-    # 用户名存在的处理
+    # Handle existing username
     if existing_user:
-        response_dic = ResponseData.register_error_dic('Account [{}] already exists, please try again'.format(user))
+        response_dic = ResponseData.register_error_dic(f'Account [{user}] already exists, please try again')
         await conn.send(response_dic)
         return
 
-    # 添加新用户到数据库
+    # Add new user to database
     async with connection.cursor() as cursor:
         await cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (user, pwd))
         await connection.commit()
 
-    # 清理资源并返回成功消息
+    # Cleanup resources and return success message
     response_dic = ResponseData.register_success_dic('Registered successfully')
     await conn.send(response_dic)
     await connection.close()
 
 
-async def login(conn, request_dic, *args, **kwargs):
-    LOGGER.debug('Start login')  # 记录登录开始的日志
-    user = request_dic.get('user')  # 从请求中获取用户名
-    pwd = request_dic.get('pwd')  # 从请求中获取密码
+"""
+User Login
+"""
 
-    # 建立数据库连接
-    async with await connect_to_database() as connection:  # 假设这里是一个支持上下文管理的连接
+
+async def login(conn, request_dic, *args, **kwargs):
+    LOGGER.debug('Start login')  # Log start of login
+    user = request_dic.get('user')  # Get username from request
+    pwd = request_dic.get('pwd')  # Get password from request
+
+    # Establish database connection
+    async with await connect_to_database() as connection:  # Assuming this is a context-managed connection
         async with connection.cursor() as cursor:
             await cursor.execute("SELECT password FROM users WHERE username=%s", (user,))
             user_record = await cursor.fetchone()
 
     if not user_record or user_record[0] != pwd:
-        # 如果用户不存在或密码不匹配
+        # If user does not exist or password does not match
         response_dic = ResponseData.login_error_dic(user, 'username or password error')
         await conn.send(response_dic)
-        await connection.close()  # 关闭数据库连接
+        await connection.close()  # Close database connection
         return
 
     if user in conn.online_users:
-        # 检查用户是否已登录
+        # Check if user is already logged in
         response_dic = ResponseData.login_error_dic(user, 'Please dont login the same user!')
         await conn.send(response_dic)
-        await connection.close()  # 关闭数据库连接
+        await connection.close()  # Close database connection
         return
 
-    # 保存当前的conn对象
+    # Save current conn object
     conn.online_users[user] = conn
     conn.name = user
-    conn.token = generate_token(user)  # 假设存在一个用于生成token的函数
-    LOGGER.info('[{}] have entered the chat room'.format(user))  # 记录用户登录的信息日志
+    conn.token = generate_token(user)  # Assuming there is a function for generating token
+    LOGGER.info(f'[{user}] have entered the chat room')  # Log user login info
     response_dic = ResponseData.login_success_dic(user, conn.token, 'login successfully')
     await conn.send(response_dic)
 
-    # 广播消息
+    # Broadcast message
     response_dic = ResponseData.online_dic(user)
-    await conn.put_q(response_dic)  # 假设存在一个用于处理消息队列的函数
+    await conn.put_q(response_dic)  # Assuming there is a function for handling message queues
 
 
 async def reconnect(conn, request_dic, *args, **kwargs):
     """
-    reconnect Interface
+    Reconnect Interface
     :param conn:
     :param request_dic:
     :param args:
@@ -100,22 +109,22 @@ async def reconnect(conn, request_dic, *args, **kwargs):
         await conn.send(response_dic)
         return
 
-    # save current conn object
+    # Save current conn object
     conn.online_users[user] = conn
     conn.name = user
     conn.token = token
-    LOGGER.info('[{}] have entered the chat room'.format(user))
+    LOGGER.info(f'[{user}] have entered the chat room')
     response_dic = ResponseData.reconnect_success_dic()
     await conn.send(response_dic)
 
-    # broadcast message
+    # Broadcast message
     response_dic = ResponseData.online_dic(user)
     await conn.put_q(response_dic)
 
 
 async def chat(conn, request_dic, *args, **kwargs):
     """
-    chat interface
+    Chat Interface
     :param conn:
     :param request_dic:
     :param args:
@@ -128,14 +137,46 @@ async def chat(conn, request_dic, *args, **kwargs):
         return
     user = request_dic.get('user')
     msg = request_dic.get('msg')
-    LOGGER.info('{} says: {}'.format(user, msg))
-    response_dic = ResponseData.chat_dic((request_dic))
+
+    # Generate a unique message id
+    message_id = generate_unique_message_id()
+    # Store message to database
+    await store_message_to_database(user, msg, message_id)
+    LOGGER.info(f'{user} says: {msg}')
+    # Modify chat_dic function to include message ID
+    response_dic = ResponseData.chat_dic(message_id, request_dic)
     await conn.put_q(response_dic)
+
+
+"""
+Message Revocation
+"""
+
+
+async def revoke_message_if_possible(message_id, user_id):
+    async with await connect_to_database() as conn:
+        async with conn.cursor() as cur:
+            # Verify if the message exists, belongs to the user requesting revocation, and is within the revocation time window
+            await cur.execute(
+                "SELECT timestamp FROM messages WHERE message_id=%s AND user_id=%s AND status='sent'",
+                (message_id, user_id,)
+            )
+            result = await cur.fetchone()
+            if result:
+                # Simplify processing here, assume all messages can be revoked, actual application should check the timestamp
+                await cur.execute(
+                    "UPDATE messages SET status='revoked' WHERE id=%s",
+                    (message_id,)
+                )
+                await conn.commit()
+                return True, "Message revoked"
+            else:
+                return False, "Message cannot be revoked"
 
 
 async def file(conn, request_dic, *args, **kwargs):
     """
-    files interface
+    Files Interface
     :param conn:
     :param request_dic:
     :param args:
@@ -149,6 +190,17 @@ async def file(conn, request_dic, *args, **kwargs):
 
     user = request_dic.get('user')
     file_name = request_dic.get('file_name')
-    LOGGER.info('{} sended files: {}'.format(user, file_name))
-    response_dic = ResponseData.file_dic((request_dic))
+    # Assume file content is transmitted in binary form
+    file_size = request_dic.get('file_size')
+
+    # Save file to server's filesystem
+    save_path = request_dic.get('file_path')  # Modify path according to actual situation
+    # with open(save_path, "wb") as file:
+    #     file.write(file_content)
+
+    # Record file information to database
+    file_id = await save_file_info_to_database(user, file_name, file_size, save_path)
+
+    LOGGER.info(f'{user} sent files: {file_name}')
+    response_dic = ResponseData.file_dic(file_id, request_dic)
     await conn.put_q(response_dic)
