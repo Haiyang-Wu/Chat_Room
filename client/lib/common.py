@@ -6,7 +6,7 @@ public method
 import hashlib
 from datetime import datetime, timezone
 from PyQt6.QtWidgets import QMessageBox
-from conf.settings import *
+from client.conf.settings import *
 
 
 # Hash encryption

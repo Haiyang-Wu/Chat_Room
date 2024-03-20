@@ -10,3 +10,15 @@
 2024-03-12 15:37:44 Dummy-2:12992622592 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:573] Reconnect dictionary send successfully!
 2024-03-12 15:37:46 Dummy-2:12913209344 [client] ERROR [/Users/fantast1c/PythonStudy/chat_room/client/lib/common.py:66] Connection down, reconnecting [Errno 9] Bad file descriptor
 2024-03-12 15:37:46 Dummy-2:12913209344 [client] INFO [/Users/fantast1c/PythonStudy/chat_room/client/core/client.py:573] Reconnect dictionary send successfully!
+2024-03-20 16:21:28 MainThread:6196 [client] INFO [O:\Python_Project\Chat_Room\client\core\client.py:418] ME says: hello
+2024-03-20 16:21:28 Dummy-2:46348 [client] ERROR [O:\Python_Project\Chat_Room\client\lib\common.py:66] Connection down, reconnecting 
+2024-03-20 16:21:28 Dummy-2:46348 [client] INFO [O:\Python_Project\Chat_Room\client\core\client.py:618] Reconnect dictionary send successfully!
+2024-03-20 16:22:07 Dummy-2:39864 [client] ERROR [O:\Python_Project\Chat_Room\client\lib\common.py:66] Connection down, reconnecting 
+2024-03-20 16:22:07 Dummy-2:39864 [client] INFO [O:\Python_Project\Chat_Room\client\core\client.py:618] Reconnect dictionary send successfully!
+2024-03-20 16:22:08 MainThread:4952 [client] INFO [O:\Python_Project\Chat_Room\client\core\client.py:496] why send a file: C:/Users/98611/Desktop/this is a test file.txt
+2024-03-20 17:40:41 MainThread:51860 [client] INFO [O:\Python_Project\Chat_Room\client\core\client.py:382] ME says: hello
+2024-03-20 17:40:55 Dummy-2:44328 [client] ERROR [O:\Python_Project\Chat_Room\client\lib\common.py:66] Connection down, reconnecting 
+2024-03-20 17:40:55 Dummy-2:44328 [client] INFO [O:\Python_Project\Chat_Room\client\core\client.py:582] Reconnect dictionary send successfully!
+2024-03-20 17:55:19 MainThread:28784 [client] INFO [O:\Python_Project\Chat_Room\client\core\client.py:382] ME says: hello
+2024-03-20 17:55:22 Dummy-2:38752 [client] ERROR [O:\Python_Project\Chat_Room\client\lib\common.py:66] Connection down, reconnecting 
+2024-03-20 17:55:22 Dummy-2:38752 [client] INFO [O:\Python_Project\Chat_Room\client\core\client.py:582] Reconnect dictionary send successfully!

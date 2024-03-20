@@ -1,16 +1,15 @@
 """
-configuration file
-
+Configuration file for the application.
 """
+
 import os
 import logging.config
 
-# server address configuration
+# Configuration for the server address
 HOST = 'localhost'
 PORT = 9000
 
-
-# protocol configration
+# Configuration for different types of requests
 REQUEST_REGISTER = 'register'
 REQUEST_LOGIN = 'login'
 REQUEST_CHAT = 'chat'
@@ -18,37 +17,34 @@ REQUEST_FILE = 'file'
 REQUEST_ONLINE = 'online'
 REQUEST_OFFLINE = 'offline'
 REQUEST_RECONNECT = 'reconnect'
-PROTOCOL_LENGTH = 8
+PROTOCOL_LENGTH = 8  # Fixed length for protocol messages
 
-
-# color config
+# Configuration for message and user display colors
 USER_COLOR = 'gray'
 MSG_COLOR = 'black'
 
-INTERVAL = 60
+INTERVAL = 60  # General purpose interval (e.g., for polling) in seconds
 
-# images suffix
-IMG_TYPES = ['png', 'jpg', 'jpeg', 'jif', 'bmp']
+# Supported image file types
+IMG_TYPES = ['png', 'jpg', 'jpeg', 'gif', 'bmp']
 
-# group announcement
-NOTICE = 'Please speak politely.！'
+# Announcement or notice to users in a group
+NOTICE = 'Please speak politely!'
 
+# Configuration for file and logging paths
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))  # Root directory of the project
+INFO_LOG_DIR = os.path.join(BASE_DIR, 'log', 'info.log')  # Path for info log files
+ERROR_LOG_DIR = os.path.join(BASE_DIR, 'log', 'error.log')  # Path for error log files
+IMG_DIR = os.path.join(BASE_DIR, 'imgs')  # Directory for storing images
+FILE_DIR = os.path.join(BASE_DIR, 'datas')  # Directory for storing other data files
 
-# routes configuration
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))       # project root directory
-INFO_LOG_DIR = os.path.join(BASE_DIR, 'log', 'info.log')
-ERROR_LOG_DIR = os.path.join(BASE_DIR, 'log', 'error.log')
-IMG_DIR = os.path.join(BASE_DIR, 'imgs')
-FILE_DIR = os.path.join(BASE_DIR, 'datas')
+LEVEL = 'DEBUG'  # Default logging level
 
-LEVEL = 'DEBUG'
-
-
-# 日志配置字典
+# Logging configuration dictionary
 LOGGING_DIC = {
     'version': 1.0,
     'disable_existing_loggers': False,
-    # 日志格式
+    # Formatters define the log message format
     'formatters': {
         'standard': {
             'format': '%(asctime)s %(threadName)s:%(thread)d [%(name)s] %(levelname)s [%(pathname)s:%(lineno)d] %(message)s',
@@ -63,47 +59,47 @@ LOGGING_DIC = {
         },
     },
     'filters': {},
-    # 日志处理器
+    # Handlers specify the destination of the log messages
     'handlers': {
         'console_debug_handler': {
-            'level': LEVEL,  # 日志处理的级别限制
-            'class': 'logging.StreamHandler',  # 输出到终端
-            'formatter': 'simple'  # 日志格式
+            'level': LEVEL,  # Log level for this handler
+            'class': 'logging.StreamHandler',  # Output to console
+            'formatter': 'simple',  # Use the simple format
         },
         'file_info_handler': {
             'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件,日志轮转
-            'filename': INFO_LOG_DIR,
-            'maxBytes': 1024*1024*10,  # 日志大小 10M
-            'backupCount': 10,  # 日志文件保存数量限制
+            'class': 'logging.handlers.RotatingFileHandler',  # Save to file, with log rotation
+            'filename': INFO_LOG_DIR,  # Path to log file
+            'maxBytes': 1024*1024*10,  # Log file size 10MB
+            'backupCount': 10,  # Limit on number of log files to keep
             'encoding': 'utf-8',
             'formatter': 'standard',
         },
         'file_error_handler': {
             'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',  # 保存到文件,日志轮转
-            'filename': ERROR_LOG_DIR,
-            'maxBytes': 1024*1024*10,  # 日志大小 10M
-            'backupCount': 10,  # 日志文件保存数量限制
+            'class': 'logging.handlers.RotatingFileHandler',  # Save to file, with log rotation
+            'filename': ERROR_LOG_DIR,  # Path to error log file
+            'maxBytes': 1024*1024*10,  # Log file size 10MB
+            'backupCount': 10,  # Limit on number of log files to keep
             'encoding': 'utf-8',
             'formatter': 'standard',
         },
     },
-    # 日志记录器
+    # Loggers are the entry point of the logging system
     'loggers': {
-        '': {  # 导入时logging.getLogger时使用的app_name
-            'handlers': ['console_debug_handler', 'file_info_handler'],  # 日志分配到哪个handlers中
-            'level': 'DEBUG',  # 日志记录的级别限制
-            'propagate': False,  # 默认为True，向上（更高级别的logger）传递，设置为False即可，否则会一份日志向上层层传递
+        '': {  # Root logger
+            'handlers': ['console_debug_handler', 'file_info_handler'],  # Handlers assigned to this logger
+            'level': 'DEBUG',  # Logging level
+            'propagate': False,  # Prevents log messages from being propagated to the root logger
         },
-        'error_logger': {  # 导入时logging.getLogger时使用的app_name
-            'handlers': ['file_error_handler', 'console_debug_handler'],  # 日志分配到哪个handlers中
-            'level': 'ERROR',  # 日志记录的级别限制
-            'propagate': False,  # 默认为True，向上（更高级别的logger）传递，设置为False即可，否则会一份日志向上层层传递
+        'error_logger': {  # Specific logger for errors
+            'handlers': ['file_error_handler', 'console_debug_handler'],  # Handlers assigned to this logger
+            'level': 'ERROR',  # Logging level for this logger
+            'propagate': False,  # Prevents log messages from being propagated to the root logger
         },
     }
 }
 
-logging.config.dictConfig(LOGGING_DIC)
-LOGGER = logging.getLogger('client')
-ERROR_LOGGER = logging.getLogger('error_logger')
+logging.config.dictConfig(LOGGING_DIC)  # Applies the logging configuration
+LOGGER = logging.getLogger('client')  # General logger for client events
+ERROR_LOGGER = logging.getLogger('error_logger')  # Logger for error events

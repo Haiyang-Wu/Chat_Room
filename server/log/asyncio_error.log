@@ -59062,3 +59062,27 @@ Traceback (most recent call last):
   File "/Users/fantast1c/PythonStudy/chat_room/server/lib/common.py", line 212, in put_q
     for q in self.q_list:
 TypeError: 'NoneType' object is not iterable
+2024-03-20 16:21:28 MainThread:24768 [asyncio] ERROR [E:\Python311\Lib\asyncio\base_events.py:1771] Task exception was never retrieved
+future: <Task finished name='Task-8' coro=<ChatServer.client_handler() done, defined at O:\Python_Project\Chat_Room\server\core\server.py:15> exception=AttributeError("'str' object has no attribute 'pop'")>
+Traceback (most recent call last):
+  File "O:\Python_Project\Chat_Room\server\core\server.py", line 23, in client_handler
+    await fn(conn, request_dic)
+  File "O:\Python_Project\Chat_Room\server\core\function\views.py", line 147, in chat
+    response_dic = ResponseData.chat_dic(message_id, request_dic)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "O:\Python_Project\Chat_Room\server\lib\common.py", line 178, in chat_dic
+    response_dic.pop('token')
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'pop'
+2024-03-20 16:22:07 MainThread:24768 [asyncio] ERROR [E:\Python311\Lib\asyncio\base_events.py:1771] Task exception was never retrieved
+future: <Task finished name='Task-12' coro=<ChatServer.client_handler() done, defined at O:\Python_Project\Chat_Room\server\core\server.py:15> exception=AttributeError("'int' object has no attribute 'pop'")>
+Traceback (most recent call last):
+  File "O:\Python_Project\Chat_Room\server\core\server.py", line 23, in client_handler
+    await fn(conn, request_dic)
+  File "O:\Python_Project\Chat_Room\server\core\function\views.py", line 205, in file
+    response_dic = ResponseData.file_dic(file_id, request_dic)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "O:\Python_Project\Chat_Room\server\lib\common.py", line 192, in file_dic
+    response_dic.pop('token')
+    ^^^^^^^^^^^^^^^^
+AttributeError: 'int' object has no attribute 'pop'

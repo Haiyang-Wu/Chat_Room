@@ -5,6 +5,8 @@ from server.db.connection import connect_to_database
 """
 Generate unique message id
 """
+
+
 def generate_unique_message_id():
     return str(uuid.uuid4())
 
@@ -12,6 +14,8 @@ def generate_unique_message_id():
 """
 Store message to database
 """
+
+
 async def store_message_to_database(user_id, msg, message_id):
     async with await connect_to_database() as conn:
         async with conn.cursor() as cur:

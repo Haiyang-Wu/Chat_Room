@@ -15,9 +15,9 @@ from PyQt6.QtWidgets import QApplication, QWidget, QTextEdit, QLabel, QListWidge
 from PyQt6.QtCore import Qt, QCoreApplication, QThread, QEventLoop, pyqtSignal, QTimer, QMargins, QFileInfo
 from PyQt6.QtGui import QDropEvent, QImage
 
-from lib.common import *
-from ui.login import Ui_Form as LoginUiMixin
-from ui.chat import Ui_Form as ChatUiMixin
+from client.lib.common import *
+from client.ui.login import Ui_Form as LoginUiMixin
+from client.ui.chat import Ui_Form as ChatUiMixin
 
 
 class MyTextEdit(QTextEdit):

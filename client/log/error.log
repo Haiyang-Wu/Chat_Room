@@ -1,0 +1,8 @@
+2024-03-20 15:58:53 MainThread:4068 [error_logger] ERROR [O:\Python_Project\Chat_Room\client\core\client.py:159] fail to connect to server, reconnect times:1! EOF occurred in violation of protocol (_ssl.c:1002)
+2024-03-20 15:58:57 MainThread:4068 [error_logger] ERROR [O:\Python_Project\Chat_Room\client\core\client.py:159] fail to connect to server, reconnect times:2! [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+2024-03-20 15:59:01 MainThread:4068 [error_logger] ERROR [O:\Python_Project\Chat_Room\client\core\client.py:159] fail to connect to server, reconnect times:3! [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+2024-03-20 16:03:36 MainThread:11596 [error_logger] ERROR [O:\Python_Project\Chat_Room\client\core\client.py:159] fail to connect to server, reconnect times:1! EOF occurred in violation of protocol (_ssl.c:1002)
+2024-03-20 16:46:32 MainThread:7884 [error_logger] ERROR [O:\Python_Project\Chat_Room\client\core\client.py:159] fail to connect to server, reconnect times:1! EOF occurred in violation of protocol (_ssl.c:1002)
+2024-03-20 17:38:23 MainThread:26508 [error_logger] ERROR [O:\Python_Project\Chat_Room\client\core\client.py:159] fail to connect to server, reconnect times:1! EOF occurred in violation of protocol (_ssl.c:1002)
+2024-03-20 17:54:55 MainThread:26856 [error_logger] ERROR [O:\Python_Project\Chat_Room\client\core\client.py:159] fail to connect to server, reconnect times:1! [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+2024-03-20 17:54:59 MainThread:26856 [error_logger] ERROR [O:\Python_Project\Chat_Room\client\core\client.py:159] fail to connect to server, reconnect times:2! [WinError 10061] 由于目标计算机积极拒绝，无法连接。

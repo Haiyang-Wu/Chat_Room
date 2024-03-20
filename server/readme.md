@@ -1,23 +1,21 @@
-## 协议格式
-
-客户端请求格式
+# Client request formats
 
 ```python
-# 注册请求格式
+# Registration request format
 {
   'mode': 'register',
   'user': 'fei',
   'pwd': 123
 }
 
-# 登陆请求格式
+# Login request format
 {
   'mode': 'login',
   'user': 'fei',
   'pwd': 123
 }
 
-# 聊天请求格式
+# Chat request format
 {
   'mode': 'chat',
   'user': 'fei',
@@ -26,7 +24,7 @@
   'token': 'jflkajflajfjas'
 }
 
-# 文件请求格式
+# File request format
 {
   'mode': 'file',
   'user': 'fei',
@@ -37,49 +35,44 @@
   'token': 'jflkajflajfjas'
 }
 
-# 重连请求格式
+# Reconnect request format
 {
   'mode': 'reconnect',
   'user': 'fei',
   'token': 'jflkajflajfjas'
 }
 
-# 管理员修改公告请求格式
-```
-
-服务端响应
-
-```python
-# 注册响应格式
+# Administrator update announcement request format
+# Registration response format
 {
   'code': 200,
   'mode': 'register',
-  'msg': '注册成功！'
+  'msg': 'Registration successful!'
 }
 {
   'code': 400,
   'mode': 'register',
-  'msg': '用户名已存在！'
+  'msg': 'Username already exists!'
 }
 
-#登陆响应格式
+# Login response format
 {
   'code': 200,
   'mode': 'login',
   'user': 'fei',
-  'msg': '登陆成功！',
+  'msg': 'Login successful!',
   'token': 'jflakfajflkjalfja',
-  'notice': '群公告',
-  'users': ('小飞', '中飞', '大飞')
+  'notice': 'Group announcement',
+  'users': ('Little Fei', 'Medium Fei', 'Big Fei')
 }
 {
   'code': 400,
   'mode': 'login',
   'user': 'fei',
-  'msg': '账号密码错误！'
+  'msg': 'Incorrect account password!'
 }
 
-# 广播响应格式
+# Broadcast response format
 {
   'code': 200,
   'mode': 'broadcast',
@@ -93,16 +86,16 @@
   'user': 'fei',
 }
 
-# 聊天响应格式
+# Chat response format
 {
   'code': 200,
   'mode': 'chat',
   'user': 'fei',
   'msg': 'hello',
-  'time': '2023-05-01 12:00:00',  # 世界标准时间
+  'time': '2023-05-01 12:00:00',  # World Standard Time
 }
 
-# 文件响应格式
+# File response format
 {
   'code': 200,
   'mode': 'file',
@@ -113,22 +106,26 @@
   'time': '2023-05-01 12:00:00',
 }
 
-# 重连响应格式
+# Reconnect response format
 {
   'code': 200,
   'mode': 'reconnect',
-  'users': ('小飞', '中飞', '大飞')
+  'users': ('Little Fei', 'Medium Fei', 'Big Fei')
 }
 {
   'code': 400,
   'mode': 'reconnect',
-  'msg': 'token无效，请重新登陆'
+  'msg': 'Token is invalid, please log in again'
 }
 
-# 公告响应格式
-```
-
-
-
-
-
+# Announcement response format
+{
+  'code': 200,
+  'mode': 'update_notice',
+  'msg': 'Announcement updated successfully.'
+}
+{
+  'code': 400,
+  'mode': 'update_notice',
+  'msg': 'Failed to update the announcement.'
+}

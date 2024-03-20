@@ -167,31 +167,44 @@ class ResponseData:
         return response_dic
 
     @staticmethod
-    def chat_dic(response_dic, *args, **kwargs):
+    def chat_dic(message_id, response_dic, *args, **kwargs):
         """
         chat dictionary
-        :param response_dic:
-        :param args:
-        :param kwargs:
-        :return:
+        :param response_dic: The dictionary containing the initial response data.
+        :param message_id: The unique identifier for the message.
+        :param args: Additional positional arguments (unused here, but for future extensibility).
+        :param kwargs: Additional keyword arguments (unused here, but for future extensibility).
+        :return: A dictionary representing the chat message response.
         """
-        response_dic.pop('token')
-        response_dic['code'] = RESPONSE_SUCCESS_CODE
-        response_dic['time'] = get_utc_time()
+        # Remove token, if it exists
+        response_dic.pop('token', None)  # Use pop(key, None) to avoid KeyError if the key does not exist
+        response_dic['code'] = RESPONSE_SUCCESS_CODE  # Assuming RESPONSE_SUCCESS_CODE is defined
+        response_dic['time'] = get_utc_time()  # Assuming get_utc_time() returns the current UTC time
+
+        # If a message_id is provided, add it to the response dictionary
+        if message_id is not None:
+            response_dic['message_id'] = message_id
+
         return response_dic
 
     @staticmethod
-    def file_dic(response_dic, *args, **kwargs):
+    def file_dic(file_id, response_dic, *args, **kwargs):
         """
-        file dictionary
-        :param response_dic:
-        :param args:
-        :param kwargs:
-        :return:
+        Modify the file dictionary to include file ID.
+
+        :param file_id: The unique identifier of the file saved in the database.
+        :param response_dic: The original response dictionary.
+        :param args: Additional positional arguments.
+        :param kwargs: Additional keyword arguments.
+        :return: The modified response dictionary with file ID included.
         """
-        response_dic.pop('token')
-        response_dic['code'] = RESPONSE_SUCCESS_CODE
-        response_dic['time'] = get_utc_time()
+        # Remove token
+        response_dic.pop('token', None)  # Use pop(key, None) to avoid KeyError if the key does not exist
+        response_dic['code'] = RESPONSE_SUCCESS_CODE  # Assuming RESPONSE_SUCCESS_CODE is defined
+        response_dic['time'] = get_utc_time()  # Assuming get_utc_time() returns the current UTC time
+        # Add file_id to the response dictionary
+        response_dic['file_id'] = file_id
+
         return response_dic
 
 
